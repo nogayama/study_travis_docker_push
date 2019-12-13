@@ -1,10 +1,17 @@
 language: bash
 
+env:
+  global:
+    - secure: cuptxK1aiXrbC7rWfw7JmgYyLN1sFMwyvEKEbVru1YB6KIinLptXHADeV3GCyyLp8hQjE4YQ9735KYY3LgCoFqvDL52vgBAsWs+6qwri56l917Fv0C1Fw7NpbEG60XRjELI889mRpv/+vjNBHMn0RPiI5OQzRfkLr3uFvt6kqJt02OujcLfR89YaG4ioq4saF8crrwI79dwrzn17ZIix2T4qM5lBe2ufEFMt84P6FsMMjktw42U6p3ozh7VimigTM8sxTu5scW3p28y5qjqZx4pngxYCCZnf6kq4R4mj4yarSRIKpd7tEOGebef/IfCag/5thBR0Bp7fpxfk464IJoXpCn6kILub423HBQS50wzBtN9waAXSyD1ywr7TAWjfKd39jSPvwS+JxcYNdXhe/K2Z9oE2kqVAqGE7n/66aPfkB+kqTAkRNqwy+EFYREOzY/Tp993EeYrapBkKLD5GeaS6SAA10nS2j54YHay1NHiNSQQo2CJPKO55eh1ZiJtosVZ+lyif/p9f5w+FRUzBWrD4CLY/t6DY366kyAu9ByFGgUvy3gQOS+ysE3XGhriDNWij5gKCf/gy+xg0+1JTNh5UDMRToU3/zmf6nh6Zm95TDKAIAlCd9YXeKvsq94esYiT0KmIGOH3h++TsKa9PxDbWvRsPADRSjPMtmLcZMV0=
+    - secure: m8sfhDeE/TavdJZ0ZsH4ubhFiTE3TBaMi+FuPXdw912h7V2mBQCnhRBby9AWkmczhokWLRxihVu/vU1hPz65Alp+h7Qg5oa/JXi4kf9Xj/cKKDtxN6I6MEbMFt58zfr4zNSDydWZc1lk+RyPAdyMXtCjougIoqg1ojERI7LAiXvJyErdsIbVqOhbxIHAUbLYLAea1PRRb1brtPF8EU6NNmIznHLsoFYEKiDlClUXiqmhct531g1rjz5p9Dhxkfpve+yYaP++bWGkNAL2aHGwy6V6i6Q7odWwljwlct1K5v2WclBlac27m1ch7dq1z7J1c6E7DbRwrtViH65pVLOS/HS3icICuG0XhyfKavkx4ls4WXkpiA7igxibf7HtsJn07msrwnX/QqYZQfQAqbNIDfVNy8jLAULPgS9VWu4tmulWKmiHAVcT2oRkVjhZ7oyAtPsY7McV/ofWnChPi4Y79dkELZ3wfyaHWBte1AByjMg2t5HJFSb1lYqj/dAcFl8Y0Vp5JXc/oWyf1KFjdJPggTpcGZUa0r0GSoNe8tLcUl3M4yE+Ch0ArON195eZAcv56l1/CAMBa3XoFkyDbBmxgpRk7zJRbSg8PCh7drb8d3lB9VI0GiyRrxLwDcO/UFrQs9YF0fOneqvOor2CVuRvqzvpEpZ4Yhz9bAtjPU3CdVg=
+
 services:
   - docker
 
 before_install:
-  - docker build -t nogayama/testimg:latest .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker image build -t nogayama/testimg:latest .
+  - docker image push     nogayama/testimg:latest
 
 script:
   - tests/mytest.sh
