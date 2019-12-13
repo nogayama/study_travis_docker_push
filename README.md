@@ -85,4 +85,4 @@ docker コマンド系が使える
 
 ## docker push
 
-
+`gem install travis`
